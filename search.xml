@@ -7,7 +7,7 @@
       <link href="/2018/11/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
       <url>/2018/11/30/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
       
-        <content type="html"><![CDATA[<h4 id="一-跳转"><a href="#一-跳转" class="headerlink" title="一 . 跳转:"></a>一 . 跳转:</h4><ol><li><p>项目间的跳转: windows下面<br>ctrl + alt + [   和   ctrl + alt + ]</p></li><li><p>help – fing Action<br>ctrl + shift + A</p></li><li><p>文件间的跳转,编辑过的<br>ctrl + E</p></li><li><p>跳转到最后一次编辑的地方 navigate下面<br>ctrl + shift + 空格</p></li><li><p>浏览位置跳转    navigate下面<br>ctrl + alt + 左箭头    ctrl + alt + 右箭头</p></li><li><p>利用书签跳转<br>ctrl + f11—f11—ctrl + 数字 跳转</p></li><li><p>收藏类,收藏方法 add to favorites<br>alt +　shift + f</p></li><li><p>插件跳转</p><a id="more"></a></li></ol><h4 id="二-精准搜索"><a href="#二-精准搜索" class="headerlink" title="二. 精准搜索"></a>二. 精准搜索</h4><ol><li><p>精准查找某个类 (点include 可以搜索jar包里面的)<br>ctrl + n</p></li><li><p>精准查找某个文件<br> ctrl +　shift + n</p></li><li><p>查符号 (包括函数)<br> ctrl + alt + shift + n</p></li><li>查找某个字符串<br> ctrl + shift + f</li><li>查找同一字符串<br> ctrl + shift + f7  再按f3向下,按shift+f3向上<h4 id="三-代码小助手"><a href="#三-代码小助手" class="headerlink" title="三. 代码小助手"></a>三. 代码小助手</h4></li><li>列操作</li></ol><ul><li>ctrl + alt +shift +j  先选中某个相同的符号, 再按快捷键就可开启</li><li>ctrl + w 选中某个单词</li><li>ctrl + shift + u 变换大小写</li><li>ctrl + shift + 右箭头选中后面的</li><li>shift + home  移到某个单词前面</li><li>shift + end  移到某个单词后面</li><li>Shift+Alt+Insert   先选中需要修改的内容再开启 列操作模式</li></ul><ol start="2"><li><p>格式化代码 reformat code<br> ctrl + alt + L</p></li><li><p>live template</p></li></ol><ul><li>postfix  通过点的方式快捷出来<br>for 循环<br>100.fori</li><li>sout输出语句</li><li><ol start="3"><li>field<br>name.field </li></ol></li><li>return<br>比如  先打要返回的对象再 打点<br>user.re   回车即可  效果就是   return user; </li></ul><ol start="5"><li>nn</li></ol><ul><li>打user.nn  效果<pre><code>if(user !=null){  }</code></pre></li></ul><ol start="6"><li>alt+enter (补全方法等)</li></ol><ul><li>自动创建函数</li><li>list replace(比如把for循环改成for each等)</li><li>字符串format 或者 build</li><li>实现接口</li><li>单词拼写</li><li>导包<h3 id="四-重构"><a href="#四-重构" class="headerlink" title="四. 重构"></a>四. 重构</h3></li><li>重构变量(会批量选中,批量改)<br> shift + F6</li><li>重构方法,(比如增加个参数)<pre><code>ctrl + F6</code></pre><h3 id="五-抽取"><a href="#五-抽取" class="headerlink" title="五. 抽取"></a>五. 抽取</h3></li><li>抽取方法参数<br> ctrl + alt +p</li><li>抽取方法<br> ctrl + alt + m</li></ul><h3 id="六-其它操作"><a href="#六-其它操作" class="headerlink" title="六. 其它操作"></a>六. 其它操作</h3><ul><li>复制文件   F5</li><li>移动文件  F6 </li><li>复制文件路径  ctrl+shift +c</li></ul><h3 id="七-查看结构图"><a href="#七-查看结构图" class="headerlink" title="七. 查看结构图"></a>七. 查看结构图</h3><ol><li>查看java类方法 ctrl + f12</li><li>查看mave依赖, 类图  ctrl+shift +alt + u,再按ctrl+n 搜索</li><li>另外一种查看类图的方式  ctrl + h</li><li>查看接口的实现类  Ctrl + alt + b</li><li>查看方法的   ctrl + alt + h</li><li>查看当前的方法声明 alt + q</li><li>显示方法的参数信息  ctrl + p</li></ol><h3 id="八-运行"><a href="#八-运行" class="headerlink" title="八. 运行"></a>八. 运行</h3><ol><li>在运行上下文的位置就可以运行  ctrl +shift +f9   </li><li>已经运行过的历史位置运行       alt+shift +f9  shift+f9运行当前的</li><li>编辑当前运行   ctrl +shift +j    </li></ol><h3 id="九-断点调试"><a href="#九-断点调试" class="headerlink" title="九. 断点调试"></a>九. 断点调试</h3><ol><li>添加 断点 ctrl + F8</li><li>运行debug  shift + F9</li><li>单步运行 F8</li><li>跳到下一个断点  F9 ,如果没有断点,就执行完结束</li><li>查看所有断点   ctrl +shift + F8 按两次</li><li>禁止所有断点   就是跳过所有的断点  点击Mute Breakpoints 再按一下F9</li><li>条件断点,  必须满点这个条件 ,这个断点才会生效, 按一次 ctrl+ shift +F8</li><li>表达式求值   alt + F8</li><li>运行到指定行   alt+F9</li><li>set Value  断点停在某一行, 点击下面小窗口, 点击变量按F2设置值 </li></ol><h3 id="九-其它"><a href="#九-其它" class="headerlink" title="九. 其它"></a>九. 其它</h3><ol><li>Alt+Insert，可以生成构造器/Getter/Setter等</li><li>Ctrl+Shift+Space，自动补全代码</li><li>格式化代码：格式化import列表Ctrl+Alt+O，格式化代码Ctrl+Alt+L。 </li><li>运行：Alt+Shift+F10运行程序，Shift+F9启动调试，Ctrl+F2停止。 </li></ol>]]></content>
+        <content type="html"><![CDATA[<h4 id="一-跳转"><a href="#一-跳转" class="headerlink" title="一 . 跳转:"></a>一 . 跳转:</h4><ol><li><p>项目间的跳转: windows下面<br>ctrl + alt + [   和   ctrl + alt + ]</p></li><li><p>help – fing Action<br>ctrl + shift + A</p></li><li><p>文件间的跳转,编辑过的<br>ctrl + E</p><a id="more"></a></li><li><p>跳转到最后一次编辑的地方 navigate下面<br>ctrl + shift + 空格</p></li><li><p>浏览位置跳转    navigate下面<br>ctrl + alt + 左箭头    ctrl + alt + 右箭头</p></li><li><p>利用书签跳转<br>ctrl + f11—f11—ctrl + 数字 跳转</p></li><li><p>收藏类,收藏方法 add to favorites<br>alt +　shift + f</p></li><li><p>插件跳转</p></li></ol><h4 id="二-精准搜索"><a href="#二-精准搜索" class="headerlink" title="二. 精准搜索"></a>二. 精准搜索</h4><ol><li><p>精准查找某个类 (点include 可以搜索jar包里面的)<br>ctrl + n</p></li><li><p>精准查找某个文件<br> ctrl +　shift + n</p></li><li><p>查符号 (包括函数)<br> ctrl + alt + shift + n</p></li><li>查找某个字符串<br> ctrl + shift + f</li><li>查找同一字符串<br> ctrl + shift + f7  再按f3向下,按shift+f3向上<h4 id="三-代码小助手"><a href="#三-代码小助手" class="headerlink" title="三. 代码小助手"></a>三. 代码小助手</h4></li><li>列操作</li></ol><ul><li>ctrl + alt +shift +j  先选中某个相同的符号, 再按快捷键就可开启</li><li>ctrl + w 选中某个单词</li><li>ctrl + shift + u 变换大小写</li><li>ctrl + shift + 右箭头选中后面的</li><li>shift + home  移到某个单词前面</li><li>shift + end  移到某个单词后面</li><li>Shift+Alt+Insert   先选中需要修改的内容再开启 列操作模式</li></ul><ol start="2"><li><p>格式化代码 reformat code<br> ctrl + alt + L</p></li><li><p>live template</p></li></ol><ul><li>postfix  通过点的方式快捷出来<br>for 循环<br>100.fori</li><li>sout输出语句</li><li>field<br>name.field </li><li>return<br>比如  先打要返回的对象再 打点<br>user.re   回车即可  效果就是   return user; </li></ul><ol start="5"><li>nn</li></ol><ul><li>打user.nn  效果<br>if(user !=null){}</li></ul><ol start="6"><li>alt+enter (补全方法等)</li></ol><ul><li>自动创建函数</li><li>list replace(比如把for循环改成for each等)</li><li>字符串format 或者 build</li><li>实现接口</li><li>单词拼写</li><li>导包<h3 id="四-重构"><a href="#四-重构" class="headerlink" title="四. 重构"></a>四. 重构</h3></li><li>重构变量(会批量选中,批量改)<br> shift + F6</li><li>重构方法,(比如增加个参数)<br> ctrl + F6<h3 id="五-抽取"><a href="#五-抽取" class="headerlink" title="五. 抽取"></a>五. 抽取</h3></li><li>抽取方法参数<br> ctrl + alt +p</li><li>抽取方法<br> ctrl + alt + m</li></ul><h3 id="六-其它操作"><a href="#六-其它操作" class="headerlink" title="六. 其它操作"></a>六. 其它操作</h3><ul><li>复制文件   F5</li><li>移动文件  F6 </li><li>复制文件路径  ctrl+shift +c</li></ul><h3 id="七-查看结构图"><a href="#七-查看结构图" class="headerlink" title="七. 查看结构图"></a>七. 查看结构图</h3><ol><li>查看java类方法 ctrl + f12</li><li>查看mave依赖, 类图  ctrl+shift +alt + u,再按ctrl+n 搜索</li><li>另外一种查看类图的方式  ctrl + h</li><li>查看接口的实现类  Ctrl + alt + b</li><li>查看方法的   ctrl + alt + h</li><li>查看当前的方法声明 alt + q</li><li>显示方法的参数信息  ctrl + p</li></ol><h3 id="八-运行"><a href="#八-运行" class="headerlink" title="八. 运行"></a>八. 运行</h3><ol><li>在运行上下文的位置就可以运行  ctrl +shift +f9   </li><li>已经运行过的历史位置运行       alt+shift +f9  shift+f9运行当前的</li><li>编辑当前运行   ctrl +shift +j    </li></ol><h3 id="九-断点调试"><a href="#九-断点调试" class="headerlink" title="九. 断点调试"></a>九. 断点调试</h3><ol><li>添加 断点 ctrl + F8</li><li>运行debug  shift + F9</li><li>单步运行 F8</li><li>跳到下一个断点  F9 ,如果没有断点,就执行完结束</li><li>查看所有断点   ctrl +shift + F8 按两次</li><li>禁止所有断点   就是跳过所有的断点  点击Mute Breakpoints 再按一下F9</li><li>条件断点,  必须满点这个条件 ,这个断点才会生效, 按一次 ctrl+ shift +F8</li><li>表达式求值   alt + F8</li><li>运行到指定行   alt+F9</li><li>set Value  断点停在某一行, 点击下面小窗口, 点击变量按F2设置值 </li></ol><h3 id="九-其它"><a href="#九-其它" class="headerlink" title="九. 其它"></a>九. 其它</h3><ol><li>Alt+Insert，可以生成构造器/Getter/Setter等</li><li>Ctrl+Shift+Space，自动补全代码</li><li>格式化代码：格式化import列表Ctrl+Alt+O，格式化代码Ctrl+Alt+L。 </li><li>运行：Alt+Shift+F10运行程序，Shift+F9启动调试，Ctrl+F2停止。 </li></ol>]]></content>
       
       
       <categories>
@@ -20,29 +20,6 @@
         <tags>
             
             <tag> idea </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>git使用</title>
-      <link href="/2017/07/18/git%E4%BD%BF%E7%94%A8/"/>
-      <url>/2017/07/18/git%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ol><li>git init</li><li>git clone <a href="http://XXX" target="_blank" rel="noopener">http://XXX</a></li><li>git add aa.md</li><li>git commit -m ‘描述’</li><li>git push origin master (推上去)</li></ol><h2 id="sea维护资料使用命令"><a href="#sea维护资料使用命令" class="headerlink" title="sea维护资料使用命令"></a>sea维护资料使用命令</h2><ol><li>git init </li><li>git clone http:XXX</li><li>git checkout -b  0715_master_que (建议大家都使用自己的分支上管理，日期+master+名字)</li><li>git add -A love (可以一次性管理全部文件夹)</li><li>git commit -m ‘改动的描述’</li><li>git checkout master (切换到主分支)</li><li>git pull origin master (使用之前先拉一下)</li><li>git merge 0715_master_que(跟主分支融合)</li><li>git push origin master(推到主分支上)</li></ol><hr><h2 id="在分支上使用一"><a href="#在分支上使用一" class="headerlink" title="在分支上使用一"></a>在分支上使用一</h2><ol><li>使用 git checkout -b 0713bug_master<ul><li>这个命令相当于两个命令</li><li>git branch 0731bug_master (创建分支)</li><li>git checkout 0730bug_master (新建分支)</li></ul></li><li>在新切分支上修改<ul><li>git status (可查看哪些文件被修改)</li><li>git add bb.md (选择本次提交文件,多个路径用空格隔开)</li><li>git commit -m ‘加描述’</li></ul></li><li>假设多次提交后,要merge到主分支上去<ul><li>git status (先查看一下)</li><li>git stash (将这些改动的文件暂存起来)</li><li>git checkout master (切换到主分支上)</li><li>git pull origin master (先拉)</li><li>git merge 0731bug_master (融合)</li><li>git push origin master (推上去吧)</li></ul></li></ol><h2 id="在分支上使用二"><a href="#在分支上使用二" class="headerlink" title="在分支上使用二"></a>在分支上使用二</h2><p>如果主分支有两个,比如一个稳定版,一个开发版,要merge到开发版应该如何操作呢?</p><ol><li>git log (在当前分支0713bug_master找一个commitId,这个commitId是当前所要merge的第一次提交的前一个commitId)</li><li>git checkout develop (切换到开发版分支)</li><li>git pull origin develop</li><li>git checkout 0713bug_master (切换到自己的bug分支)</li><li>git rebase –onto=develop commitId</li><li>git checkout develop (查看是否有冲突,有则解决)</li><li>git push origin develop</li></ol><h2 id="在分支上使用二-通用"><a href="#在分支上使用二-通用" class="headerlink" title="在分支上使用二(通用)"></a>在分支上使用二(通用)</h2><ol><li>git log(在当前分支0713bug_master上，找到要merge的commitId)</li><li>git checkout develop</li><li>git pull origin develop</li><li>git cherry-pick commitId<br>查看是否有冲突,有则解决冲突</li><li>git push origin develop</li></ol><h2 id="关于github上克隆项目的问题"><a href="#关于github上克隆项目的问题" class="headerlink" title="关于github上克隆项目的问题"></a>关于github上克隆项目的问题</h2><ol><li>新电脑需要先把公钥复制到 New SSH key里.<ul><li>ssh key：ssh-keygen -t rsa -C  “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“ (这里要一路回车)</li><li>在用户目录下的.ssh文件夹中有id_rsa(私钥)和id_rsa.pub(公钥)</li><li>git clone git@XXx</li><li>如果报错的话,有可能是网络环境问题,请在clone后+http协议地址.</li><li>git remote show origin (查看某个远程仓库的详细信息)</li></ul></li></ol><h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><ol><li>rm aa.md</li><li>git rm aa.md</li><li>git commit -m ‘描述’</li><li>git push origin master</li></ol><h2 id="其它常用命令"><a href="#其它常用命令" class="headerlink" title="其它常用命令"></a>其它常用命令</h2><ol><li>it branch (查看本地所有的分支)</li><li>git add -A abc (abc为文件夹，文件夹下所有文档都将add)</li><li>git branch -D 0713bug_master (强制删除0713bug_master分支)</li><li>git reset –hard commitId(回滚到某次commitId状态，git reset –soft HEAD~ )</li><li><p>git reset [–hard|soft|mixed|merge|keep] [commit|HEAD]</p></li><li><p>git remote add kh <a href="https://git.oschina.Net/zgj2016/KHPro.git" target="_blank" rel="noopener">https://git.oschina.Net/zgj2016/KHPro.git</a> （这行命令执行一次就行，是为了给自己仓库的地址起个别名，下次提交不需要执行此行代码）</p></li><li>git mv game.py wordgame.py(在git里重命名需要用到git mv 命令)</li><li>echo *.temp &gt; .gitignore （创建带点的忽略文件夹，并忽略.temp文件）</li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> git </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> git </tag>
             
         </tags>
       
@@ -89,6 +66,29 @@
         <tags>
             
             <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>git使用</title>
+      <link href="/2017/07/18/git%E4%BD%BF%E7%94%A8/"/>
+      <url>/2017/07/18/git%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ol><li>git init</li><li>git clone <a href="http://XXX" target="_blank" rel="noopener">http://XXX</a></li><li>git add aa.md</li><li>git commit -m ‘描述’</li><li>git push origin master (推上去)</li></ol><h2 id="sea维护资料使用命令"><a href="#sea维护资料使用命令" class="headerlink" title="sea维护资料使用命令"></a>sea维护资料使用命令</h2><ol><li>git init </li><li>git clone http:XXX</li><li>git checkout -b  0715_master_que (建议大家都使用自己的分支上管理，日期+master+名字)</li><li>git add -A love (可以一次性管理全部文件夹)</li><li>git commit -m ‘改动的描述’</li><li>git checkout master (切换到主分支)</li><li>git pull origin master (使用之前先拉一下)</li><li>git merge 0715_master_que(跟主分支融合)</li><li>git push origin master(推到主分支上)</li></ol><hr><h2 id="在分支上使用一"><a href="#在分支上使用一" class="headerlink" title="在分支上使用一"></a>在分支上使用一</h2><ol><li>使用 git checkout -b 0713bug_master<ul><li>这个命令相当于两个命令</li><li>git branch 0731bug_master (创建分支)</li><li>git checkout 0730bug_master (新建分支)</li></ul></li><li>在新切分支上修改<ul><li>git status (可查看哪些文件被修改)</li><li>git add bb.md (选择本次提交文件,多个路径用空格隔开)</li><li>git commit -m ‘加描述’</li></ul></li><li>假设多次提交后,要merge到主分支上去<ul><li>git status (先查看一下)</li><li>git stash (将这些改动的文件暂存起来)</li><li>git checkout master (切换到主分支上)</li><li>git pull origin master (先拉)</li><li>git merge 0731bug_master (融合)</li><li>git push origin master (推上去吧)</li></ul></li></ol><h2 id="在分支上使用二"><a href="#在分支上使用二" class="headerlink" title="在分支上使用二"></a>在分支上使用二</h2><p>如果主分支有两个,比如一个稳定版,一个开发版,要merge到开发版应该如何操作呢?</p><ol><li>git log (在当前分支0713bug_master找一个commitId,这个commitId是当前所要merge的第一次提交的前一个commitId)</li><li>git checkout develop (切换到开发版分支)</li><li>git pull origin develop</li><li>git checkout 0713bug_master (切换到自己的bug分支)</li><li>git rebase –onto=develop commitId</li><li>git checkout develop (查看是否有冲突,有则解决)</li><li>git push origin develop</li></ol><h2 id="在分支上使用二-通用"><a href="#在分支上使用二-通用" class="headerlink" title="在分支上使用二(通用)"></a>在分支上使用二(通用)</h2><ol><li>git log(在当前分支0713bug_master上，找到要merge的commitId)</li><li>git checkout develop</li><li>git pull origin develop</li><li>git cherry-pick commitId<br>查看是否有冲突,有则解决冲突</li><li>git push origin develop</li></ol><h2 id="关于github上克隆项目的问题"><a href="#关于github上克隆项目的问题" class="headerlink" title="关于github上克隆项目的问题"></a>关于github上克隆项目的问题</h2><ol><li>新电脑需要先把公钥复制到 New SSH key里.<ul><li>ssh key：ssh-keygen -t rsa -C  “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“ (这里要一路回车)</li><li>在用户目录下的.ssh文件夹中有id_rsa(私钥)和id_rsa.pub(公钥)</li><li>git clone git@XXx</li><li>如果报错的话,有可能是网络环境问题,请在clone后+http协议地址.</li><li>git remote show origin (查看某个远程仓库的详细信息)</li></ul></li></ol><h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><ol><li>rm aa.md</li><li>git rm aa.md</li><li>git commit -m ‘描述’</li><li>git push origin master</li></ol><h2 id="其它常用命令"><a href="#其它常用命令" class="headerlink" title="其它常用命令"></a>其它常用命令</h2><ol><li>it branch (查看本地所有的分支)</li><li>git add -A abc (abc为文件夹，文件夹下所有文档都将add)</li><li>git branch -D 0713bug_master (强制删除0713bug_master分支)</li><li>git reset –hard commitId(回滚到某次commitId状态，git reset –soft HEAD~ )</li><li><p>git reset [–hard|soft|mixed|merge|keep] [commit|HEAD]</p></li><li><p>git remote add kh <a href="https://git.oschina.Net/zgj2016/KHPro.git" target="_blank" rel="noopener">https://git.oschina.Net/zgj2016/KHPro.git</a> （这行命令执行一次就行，是为了给自己仓库的地址起个别名，下次提交不需要执行此行代码）</p></li><li>git mv game.py wordgame.py(在git里重命名需要用到git mv 命令)</li><li>echo *.temp &gt; .gitignore （创建带点的忽略文件夹，并忽略.temp文件）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
             
         </tags>
       
@@ -342,29 +342,6 @@
     </entry>
     
     <entry>
-      <title>svn相关</title>
-      <link href="/2015/04/09/svn%E7%9B%B8%E5%85%B3/"/>
-      <url>/2015/04/09/svn%E7%9B%B8%E5%85%B3/</url>
-      
-        <content type="html"><![CDATA[<h2 id="svn上下载maven项目的一种正确方法"><a href="#svn上下载maven项目的一种正确方法" class="headerlink" title="svn上下载maven项目的一种正确方法"></a>svn上下载maven项目的一种正确方法</h2><p>  第一步：新建一个空文件夹</p><p>  第二步：在文件夹上右键点SVNcheckOut</p><p>  第三步：在Eclipse中工程栏的空白位置右键Import</p><p>  第四步：填maven-&gt;Excist Maven Project</p><p>  第五步：选中项目中的pom.xml</p><p>  第六步：完成</p><p>错误的方法：在Eclipse中工程拦的空白位置右键，svn 从svn中检出项目，选择项目的网址，找到对应的文件夹导出。</p><h2 id="svn导入项目后如何转成maven项目"><a href="#svn导入项目后如何转成maven项目" class="headerlink" title="svn导入项目后如何转成maven项目"></a>svn导入项目后如何转成maven项目</h2><p>刚从svn上导出的maven工程是个普通的文件夹，并且也没有编译。从网上找了很多办法，都没有解决问题。最后还是自己琢磨着把问题解决了。<br>1.如果导出的项目没有自动变成maven项目并且也不是普通的Java工程，网上说通过右键点击工程-&gt;Configure-&gt;convert into maven project解决。但是我按照上面试了一下，结果没有发现configure下有convert into maven project选项。如果你和我一样，不妨试下点击convert into faceted form。这时，你的工程应该变成了普通的Java工程（并且报错）。这时，再右键该工程-&gt;maven-&gt;enabled dependency management，这样，你的工程就变成了maven工程。<br>2.如果这时你的工程仍然报错，展开项目，看看项目中是不是缺少 Maven Dependencies 项，如果是这样的话，就右键项目-&gt;maven-&gt;update project Configuration，然后你再看看工程是不是不报错了。（或者右键项目-&gt;maven-&gt;disable Dependency Management-&gt;右键项目-&gt;maven-&gt;enable Dependency Management）</p><p>参考：<a href="http://chenzhou123520.iteye.com/blog/1811340" target="_blank" rel="noopener">http://chenzhou123520.iteye.com/blog/1811340</a></p><h2 id="Maven工程下使用SVN上传和下载代码"><a href="#Maven工程下使用SVN上传和下载代码" class="headerlink" title="Maven工程下使用SVN上传和下载代码"></a>Maven工程下使用SVN上传和下载代码</h2><p><a href="https://blog.csdn.net/kerwinJu/article/details/65630079" target="_blank" rel="noopener">https://blog.csdn.net/kerwinJu/article/details/65630079</a></p><p>Trunk是主干，我们都在这里进行开发，这是发布版本，必须向前开发，大版本。如果版本里有bug，就在branches里进行小版本开发，最后再向主干里合并。复制trunk的url地址用于上传，它是https协议的。</p><p>https用的端口是433。</p><p>在eclipse的每个工程里Team-&gt;shareproject-&gt;SVN-&gt;trunk的url</p><p>点完成</p><p>点yes同步</p><p>Eclipse里会跳转到同步窗口，此时代码还在本地，文件带绿色加号的都是要上传的，旁边那排按钮有上传、下载、同步等功能。</p><p>向SVN提交代码</p><p>每个人的机器配置不一样，需要忽略.settings和.project上传，一定要忽略掉再提交！</p><p>回到svn服务器上刷新一下，就看到了提交的工程</p><p>再接着上传其他目录，maven工程会有冲突，就更新一下再提交就没错了</p><p>此时又要去忽略.settings和.project每次都要这样很麻烦，可以这样做：</p><p>在eclipse的首选项中team-&gt;git-&gt;Ignored Resources-&gt;Add Pattern</p><p>添加.settings .project 和.classpath</p><p>之后提交工程，提交完了点同步一下（第一个按钮）</p><p>在提交Maven聚合工程的时候，还需要忽略target，它就相当于java工程里的bin目录，</p><p>Bin目录是不需要上传到svn的。同样可以把target添加到ignored resources里。</p><p>提交、同步完工程后，聚合工程下的子工程就不需要提交了，但是子工程上没有小桶</p><p>标记，说明没有被svn管理，右键把它们删了，但千万别勾选删了硬盘上的。只是逻辑上的删除而已，相当于删除工程的引用而已，然后再把它们引进来。</p><p>右击聚合工程import-&gt;maven-&gt;existing maven projects，就可以导入子工程了，就都有小桶标记了。</p><p>从SVN下载代码</p><p>在eclipse里删掉所有刚提交的项目</p><p>安装VisualSvn服务端报错解决和安装SVN插件具体见我的CSDN</p><p>点击JavaEE图标旁边的小方框，弹出如下选择框，选择SVN资源库研究</p><p>此时展现出来的页面就是服务端的东西，不能乱删东西，在这边删了服务端就没了</p><p>回到JavaEE界面import-&gt;svn</p><p>需要注意的是，如果选择导入一个工程，下一步检出为选第二个</p><p>如果选择多个工程就直接下一步就行了。下载下来后是没有子工程的，需要手动导入子工程，点击聚合的工程导入就行了，方法上面已经介绍。</p><p>接下来会发现下载下来的工程不是一个maven工程的目录结构，需要转成Maven工程，转的过程中按照依赖关系转，否则会出错，先转parent(configure-&gt;convert to maven project)，然后再转其他子工程。</p><h2 id="eclipse-maven-插件的安装和配置"><a href="#eclipse-maven-插件的安装和配置" class="headerlink" title="eclipse maven 插件的安装和配置"></a>eclipse maven 插件的安装和配置</h2><p><a href="https://blog.csdn.net/kevin_spa/article/details/71214189" target="_blank" rel="noopener">https://blog.csdn.net/kevin_spa/article/details/71214189</a></p><h2 id="Eclipse的SVN插件与本地svn客户端关联详解"><a href="#Eclipse的SVN插件与本地svn客户端关联详解" class="headerlink" title="Eclipse的SVN插件与本地svn客户端关联详解"></a>Eclipse的SVN插件与本地svn客户端关联详解</h2><p><a href="https://blog.csdn.net/shenxiuwen1989/article/details/52162152" target="_blank" rel="noopener">https://blog.csdn.net/shenxiuwen1989/article/details/52162152</a></p><h2 id="Eclipse-安装-SVN-插件的两种方法"><a href="#Eclipse-安装-SVN-插件的两种方法" class="headerlink" title="Eclipse 安装 SVN 插件的两种方法"></a>Eclipse 安装 SVN 插件的两种方法</h2><p><a href="https://blog.csdn.net/jieshaowang1229/article/details/51594992" target="_blank" rel="noopener">https://blog.csdn.net/jieshaowang1229/article/details/51594992</a></p><h2 id="svn-下载列表"><a href="#svn-下载列表" class="headerlink" title="svn 下载列表"></a>svn 下载列表</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> svn </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>struct第二天</title>
       <link href="/2015/04/09/struts%E7%AC%AC%E4%BA%8C%E5%A4%A9/"/>
       <url>/2015/04/09/struts%E7%AC%AC%E4%BA%8C%E5%A4%A9/</url>
@@ -382,6 +359,29 @@
         <tags>
             
             <tag> struts </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>svn相关</title>
+      <link href="/2015/04/09/svn%E7%9B%B8%E5%85%B3/"/>
+      <url>/2015/04/09/svn%E7%9B%B8%E5%85%B3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="svn上下载maven项目的一种正确方法"><a href="#svn上下载maven项目的一种正确方法" class="headerlink" title="svn上下载maven项目的一种正确方法"></a>svn上下载maven项目的一种正确方法</h2><p>  第一步：新建一个空文件夹</p><p>  第二步：在文件夹上右键点SVNcheckOut</p><p>  第三步：在Eclipse中工程栏的空白位置右键Import</p><p>  第四步：填maven-&gt;Excist Maven Project</p><p>  第五步：选中项目中的pom.xml</p><p>  第六步：完成</p><p>错误的方法：在Eclipse中工程拦的空白位置右键，svn 从svn中检出项目，选择项目的网址，找到对应的文件夹导出。</p><h2 id="svn导入项目后如何转成maven项目"><a href="#svn导入项目后如何转成maven项目" class="headerlink" title="svn导入项目后如何转成maven项目"></a>svn导入项目后如何转成maven项目</h2><p>刚从svn上导出的maven工程是个普通的文件夹，并且也没有编译。从网上找了很多办法，都没有解决问题。最后还是自己琢磨着把问题解决了。<br>1.如果导出的项目没有自动变成maven项目并且也不是普通的Java工程，网上说通过右键点击工程-&gt;Configure-&gt;convert into maven project解决。但是我按照上面试了一下，结果没有发现configure下有convert into maven project选项。如果你和我一样，不妨试下点击convert into faceted form。这时，你的工程应该变成了普通的Java工程（并且报错）。这时，再右键该工程-&gt;maven-&gt;enabled dependency management，这样，你的工程就变成了maven工程。<br>2.如果这时你的工程仍然报错，展开项目，看看项目中是不是缺少 Maven Dependencies 项，如果是这样的话，就右键项目-&gt;maven-&gt;update project Configuration，然后你再看看工程是不是不报错了。（或者右键项目-&gt;maven-&gt;disable Dependency Management-&gt;右键项目-&gt;maven-&gt;enable Dependency Management）</p><p>参考：<a href="http://chenzhou123520.iteye.com/blog/1811340" target="_blank" rel="noopener">http://chenzhou123520.iteye.com/blog/1811340</a></p><h2 id="Maven工程下使用SVN上传和下载代码"><a href="#Maven工程下使用SVN上传和下载代码" class="headerlink" title="Maven工程下使用SVN上传和下载代码"></a>Maven工程下使用SVN上传和下载代码</h2><p><a href="https://blog.csdn.net/kerwinJu/article/details/65630079" target="_blank" rel="noopener">https://blog.csdn.net/kerwinJu/article/details/65630079</a></p><p>Trunk是主干，我们都在这里进行开发，这是发布版本，必须向前开发，大版本。如果版本里有bug，就在branches里进行小版本开发，最后再向主干里合并。复制trunk的url地址用于上传，它是https协议的。</p><p>https用的端口是433。</p><p>在eclipse的每个工程里Team-&gt;shareproject-&gt;SVN-&gt;trunk的url</p><p>点完成</p><p>点yes同步</p><p>Eclipse里会跳转到同步窗口，此时代码还在本地，文件带绿色加号的都是要上传的，旁边那排按钮有上传、下载、同步等功能。</p><p>向SVN提交代码</p><p>每个人的机器配置不一样，需要忽略.settings和.project上传，一定要忽略掉再提交！</p><p>回到svn服务器上刷新一下，就看到了提交的工程</p><p>再接着上传其他目录，maven工程会有冲突，就更新一下再提交就没错了</p><p>此时又要去忽略.settings和.project每次都要这样很麻烦，可以这样做：</p><p>在eclipse的首选项中team-&gt;git-&gt;Ignored Resources-&gt;Add Pattern</p><p>添加.settings .project 和.classpath</p><p>之后提交工程，提交完了点同步一下（第一个按钮）</p><p>在提交Maven聚合工程的时候，还需要忽略target，它就相当于java工程里的bin目录，</p><p>Bin目录是不需要上传到svn的。同样可以把target添加到ignored resources里。</p><p>提交、同步完工程后，聚合工程下的子工程就不需要提交了，但是子工程上没有小桶</p><p>标记，说明没有被svn管理，右键把它们删了，但千万别勾选删了硬盘上的。只是逻辑上的删除而已，相当于删除工程的引用而已，然后再把它们引进来。</p><p>右击聚合工程import-&gt;maven-&gt;existing maven projects，就可以导入子工程了，就都有小桶标记了。</p><p>从SVN下载代码</p><p>在eclipse里删掉所有刚提交的项目</p><p>安装VisualSvn服务端报错解决和安装SVN插件具体见我的CSDN</p><p>点击JavaEE图标旁边的小方框，弹出如下选择框，选择SVN资源库研究</p><p>此时展现出来的页面就是服务端的东西，不能乱删东西，在这边删了服务端就没了</p><p>回到JavaEE界面import-&gt;svn</p><p>需要注意的是，如果选择导入一个工程，下一步检出为选第二个</p><p>如果选择多个工程就直接下一步就行了。下载下来后是没有子工程的，需要手动导入子工程，点击聚合的工程导入就行了，方法上面已经介绍。</p><p>接下来会发现下载下来的工程不是一个maven工程的目录结构，需要转成Maven工程，转的过程中按照依赖关系转，否则会出错，先转parent(configure-&gt;convert to maven project)，然后再转其他子工程。</p><h2 id="eclipse-maven-插件的安装和配置"><a href="#eclipse-maven-插件的安装和配置" class="headerlink" title="eclipse maven 插件的安装和配置"></a>eclipse maven 插件的安装和配置</h2><p><a href="https://blog.csdn.net/kevin_spa/article/details/71214189" target="_blank" rel="noopener">https://blog.csdn.net/kevin_spa/article/details/71214189</a></p><h2 id="Eclipse的SVN插件与本地svn客户端关联详解"><a href="#Eclipse的SVN插件与本地svn客户端关联详解" class="headerlink" title="Eclipse的SVN插件与本地svn客户端关联详解"></a>Eclipse的SVN插件与本地svn客户端关联详解</h2><p><a href="https://blog.csdn.net/shenxiuwen1989/article/details/52162152" target="_blank" rel="noopener">https://blog.csdn.net/shenxiuwen1989/article/details/52162152</a></p><h2 id="Eclipse-安装-SVN-插件的两种方法"><a href="#Eclipse-安装-SVN-插件的两种方法" class="headerlink" title="Eclipse 安装 SVN 插件的两种方法"></a>Eclipse 安装 SVN 插件的两种方法</h2><p><a href="https://blog.csdn.net/jieshaowang1229/article/details/51594992" target="_blank" rel="noopener">https://blog.csdn.net/jieshaowang1229/article/details/51594992</a></p><h2 id="svn-下载列表"><a href="#svn-下载列表" class="headerlink" title="svn 下载列表"></a>svn 下载列表</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> svn </tag>
             
         </tags>
       
