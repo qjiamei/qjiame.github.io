@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>JVM总结 | JAVA前沿</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JVM总结</h1><a id="logo" href="/.">JAVA前沿</a><p class="description">阙继芳的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">JVM总结</h1><div class="post-meta">Feb 24, 2019<span> | </span><span class="category"><a href="/categories/基础/">基础</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-JVM运行时数据区"><span class="toc-number">1.</span> <span class="toc-text">一.JVM运行时数据区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-JVM内存模型"><span class="toc-number">2.</span> <span class="toc-text">二.JVM内存模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-JVM内存模型—持久代"><span class="toc-number">3.</span> <span class="toc-text">三.JVM内存模型—持久代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM内存模型–元空间-metaspace"><span class="toc-number">4.</span> <span class="toc-text">JVM内存模型–元空间(metaspace</span></a></li></ol></div></div><div class="post-content"><h3 id="一-JVM运行时数据区"><a href="#一-JVM运行时数据区" class="headerlink" title="一.JVM运行时数据区"></a>一.JVM运行时数据区</h3><p><img src="http://video.quejifang.cn/201902140038_502.png" alt=""></p>
+<hr>
+<p><strong>虚拟机栈</strong></p>
+<ul>
+<li>作用</li>
+</ul>
+<ol>
+<li>描述Java方法执行的内存模型。每个方法在执行的同时都会开辟一段内存区域用于存放方法运行时所需的数据，成为栈帧</li>
+<li>一个栈帧包含如：<strong>局部变量表、操作栈、动态链接、方法出口</strong>等信息。</li>
+</ol>
+<ul>
+<li>意义<br>JVM是基于栈的，所以每个方法从调用到执行结束，就对应着一个栈帧在虚拟机栈中入栈和出栈的整个过程。<br>存储内容 </li>
+<li>局部变量表（编译期可知的各种基本数据类型、引用类型和指向一条字节码指令的returnAddress类型）、操作数栈、动态链接、方法出口等信息。</li>
+<li><strong>局部变量表(八大基本数据类型,对象引用,returnAddress</strong>)<br>值得注意的是：局部变量表所需的内存空间在编译期间完成分配。在方法运行的阶段是不会改变局部变量表的大小的。</li>
+<li>可能出现的异常<br>如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常。<br>如果在动态扩展内存的时候无法申请到足够的内存，就会抛出OutOfMemoryError异常。</li>
+</ul>
+<p><strong>本地方法栈</strong></p>
+<ul>
+<li>作用<br>为JVM所调用到的Nativa即本地方法服务。</li>
+<li>可能出现的异常<br>和虚拟机栈出现的异常很相像。</li>
+</ul>
+<p><strong>方法区</strong></p>
+<ul>
+<li>作用<br>方法区是各个线程共享的内存区域, 用于存储<strong>运行时常量池、已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据</strong>。</li>
+<li>意义<br>对运行时常量池、常量、静态变量等数据做出了规定。</li>
+<li>存储内容<br>运行时常量池（具有动态性）、已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据(JIT编译的代码)。</li>
+<li>可能出现的异常<br>当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</li>
+</ul>
+<hr>
+<h3 id="二-JVM内存模型"><a href="#二-JVM内存模型" class="headerlink" title="二.JVM内存模型"></a>二.JVM内存模型</h3><p><img src="http://video.quejifang.cn/201902140100_16.png" alt=""></p>
+<ul>
+<li>堆是JVM内存占用最大，管理最复杂的一个区域。其唯一的用途就是存放对象实例：所有的对象实例及数组都在对上进行分配</li>
+<li>老年代 ： 三分之二的堆空间<br>年轻代 ： 三分之一的堆空间<br>eden区： 8/10 的年轻代空间<br>survivor0 : 1/10 的年轻代空间<br>survivor1 : 1/10 的年轻代空间</li>
+</ul>
+<ol>
+<li>堆分成两大块,新生代和老年代,对象产生之初在新生代,步入暮年时进入老年代,但是老年代也接纳在新生代无法容纳的超大对象</li>
+<li>新生代 = 1个Eden区 + 2个Survivor区</li>
+<li>大部份对象在Eden区生成,当Eden区装满的时候, 会触发YGC(Yong Garbage Collection 垃圾回收),触发后Eden区实现清除策略,没有被引用的对象则直接回收,存活的对象会被送到Survivor</li>
+<li>Survivor有两个,会被送到哪一个呢?<ul>
+<li>它的策略是:每次YGC的时候,它将存活的对象复制到未使用的那块空间,然后将当前使用的空间清除,交换两块空间的使用状态.</li>
+<li>当要移送的对象大于S区容量的上限,则直接交给老年代.</li>
+<li>假如一些没有进取心的的对象在S1和S2换来换去用什么策略防止呢?每个对象都有一个计数器,每次YGC都会加1,-XX:Max TenuringThreshold参数能配置计数器达到某个阈值的时候,对象直接从新生代晋升到老年代,默认值是15,可以在S区交换14次之的之后晋升到老年代</li>
+</ul>
+<ol start="5">
+<li>如果S区无法放下,或者超大对象的阈值超过上限,则尝试在第年代中进行分配,如果老年代也无法放下,则会触发FGC(Full Garbage Collection),还是放不下的话,则会抛出OOM(Out of Memory)</li>
+</ol>
+</li>
+</ol>
+<h3 id="三-JVM内存模型—持久代"><a href="#三-JVM内存模型—持久代" class="headerlink" title="三.JVM内存模型—持久代"></a>三.JVM内存模型—持久代</h3><p>持久代中包含了虚拟机中所有可通过<strong>反射获取到的数据，比如Class和Method对象</strong>。不同的Java虚拟机之间可能会进行类共享，因此持久代又分为只读区和读写区。</p>
+<p>JVM用于描述应用程序中用到的类和方法的元数据也存储在持久代中。JVM运行时会用到多少持久代的空间取决于应用程序用到了多少类。除此之外，Java SE库中的类和方法也都存储在这里。</p>
+<p>如果JVM发现有的类已经不再需要了，它会去回收（卸载）这些类，将它们的空间释放出来给其它类使用。Full GC会进行持久代的回收。</p>
+<ul>
+<li>JVM中类的<strong>元数据</strong>在Java堆中的存储区域。</li>
+<li>Java类对应的HotSpot虚拟机中的<strong>内部表示</strong>也存储在这里。</li>
+<li>类的<strong>层级信息，字段，名字</strong>。</li>
+<li>方法的<strong>编译信息及字节码</strong>。</li>
+<li><strong>变量</strong></li>
+<li><strong>常量池和符号解析</strong></li>
+<li>(所谓的元数据是指用来描述数据的数据，更通俗一点就是描述代码间关系，或者代码与其它资源（例如数据库表）之间内在联系得数据，对Struts来说就是struts-config.xml,对ejb来说就是ejb-jar.xml和厂商自定义的xml文件，对hibernate来说就是hbm文件。)</li>
+</ul>
+<p><strong>持久代的大小</strong></p>
+<ul>
+<li>它的上限是MaxPermSize，默认是64M</li>
+<li>Java堆中的连续区域 : 如果存储在非连续的堆空间中的话，要定位出持久代到新对象的引用非常复杂并且耗时。卡表（card table），是一种记忆集（Remembered Set），它用来记录某个内存代中普通对象指针（oops）的修改。</li>
+<li>持久代用完后，会抛出OutOfMemoryError “PermGen space”异常。解决方案：应用程序清理引用来触发类卸载；增加MaxPermSize的大小。</li>
+<li>需要多大的持久代空间取决于类的数量，方法的大小，以及常量池的大小。</li>
+</ul>
+<p><strong>为什么移除持久代</strong></p>
+<ul>
+<li>它的大小是在启动时固定好的——很难进行调优。-XX:MaxPermSize，设置成多少好呢？</li>
+<li>HotSpot的内部类型也是Java对象：它可能会在Full GC中被移动，同时它对应用不透明，且是非强类型的，难以跟踪调试，还需要存储元数据的元数据信息（meta-metadata）。</li>
+<li>简化Full GC：每一个回收器有专门的元数据迭代器。</li>
+<li>可以在GC不进行暂停的情况下并发地释放类数据。</li>
+<li>使得原来受限于持久代的一些改进未来有可能实现</li>
+</ul>
+<h3 id="JVM内存模型–元空间-metaspace"><a href="#JVM内存模型–元空间-metaspace" class="headerlink" title="JVM内存模型–元空间(metaspace"></a>JVM内存模型–元空间(metaspace</h3><ul>
+<li>持久代的空间被彻底地删除了，它被一个叫<strong>元空间</strong>的区域所替代了。持久代删除了之后，很明显，JVM会忽略PermSize和MaxPermSize这两个参数，还有就是你再也看不到java.lang.OutOfMemoryError: PermGen error的异常了。原来类的<strong>静态变量和Interned Strings</strong> 都被转移到了java堆区，<strong>只有class元数据才在元空间。JDK 8的HotSpot JVM现在使用的是本地内存来表示类的元数据，这个区域就叫做元空间</strong></li>
+<li>持久代区别于元空间,元空间在本地内存中分配,在JDK8里,Perm区中的所有内容中字符串常量移至堆内存,其它内容(包括类远元信息,字段,静态属性,方法,常量等移至元空间内,)</li>
+</ul>
+<p><strong>元空间的特点：</strong></p>
+<ul>
+<li>充分利用了Java语言规范中的好处：<strong>类及相关的元数据的生命周期与类加载器的一致</strong>。</li>
+<li>每个加载器有专门的存储空间</li>
+<li>只进行线性分配</li>
+<li>不会单独回收某个类</li>
+<li>省掉了GC扫描及压缩的时间</li>
+<li>元空间里的对象的位置是固定的</li>
+<li>如果GC发现某个类加载器不再存活了，会把相关的空间整个回收掉</li>
+</ul>
+<p><strong>元空间的内存分配模型</strong></p>
+<ul>
+<li>绝大多数的类元数据的空间都从本地内存中分配</li>
+<li>用来描述类元数据的类也被删除了</li>
+<li>为元数据分配了多个虚拟内存空间</li>
+<li>给每个类加载器分配一个内存块的列表。块的大小取决于类加载器的类型;</li>
+<li><code>sun</code>/反射/代理对应的类加载器的块会小一些</li>
+<li>归还内存块，释放内存块列表</li>
+<li>一旦元空间的数据被清空了，虚拟内存的空间会被回收掉</li>
+<li>减少碎片的策略</li>
+</ul>
+<p><strong>元空间的调优</strong></p>
+<ul>
+<li>使用-XX:MaxMetaspaceSize参数可以设置元空间的最大值，默认是没有上限的，也就是说你的系统内存上限是多少它就是多少。</li>
+<li><code>-XX:MetaspaceSize</code>选项指定的是元空间的初始大小，如果没有指定的话，元空间会根据应用程序运行时的需要动态地调整大小。</li>
+</ul>
+<p><a href="https://blog.csdn.net/u011464536/article/details/78235438" target="_blank" rel="noopener">参考网站 </a></p>
+</div><iframe src="/donate/?AliPayQR=/img/AliPayQR.png&amp;WeChatQR=/img/WeChatQR.png&amp;GitHub=null&amp;BTCQR=null&amp;BTCKEY=null&amp;PayPal=null" style="overflow-x:hidden; overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;" frameborder="0" scrolling="no"></iframe><div class="tags"><a href="/tags/JVM/">JVM</a></div><div class="post-nav"><a class="next" href="/2019/02/16/Mybatis标签/">Mybatis标签总结</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVAWEB/">JAVAWEB</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础/">基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/框架/">框架</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/解决/">解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目/">项目</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/dao-xml/" style="font-size: 15px;">dao.xml</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/spring-mvc/" style="font-size: 15px;">spring mvc</a> <a href="/tags/springAOP/" style="font-size: 15px;">springAOP</a> <a href="/tags/struts/" style="font-size: 15px;">struts</a> <a href="/tags/秒杀/" style="font-size: 15px;">秒杀</a> <a href="/tags/service-xml-trans-xml/" style="font-size: 15px;">service.xml trans.xml</a> <a href="/tags/idea/" style="font-size: 15px;">idea</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/观察者模式/" style="font-size: 15px;">观察者模式</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/框架/" style="font-size: 15px;">框架</a> <a href="/tags/orcal/" style="font-size: 15px;">orcal</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/web-xml/" style="font-size: 15px;">web.xml</a> <a href="/tags/mvc-xml/" style="font-size: 15px;">mvc.xml</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/JVM总结/">JVM总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Mybatis标签/">Mybatis标签总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/30/idea快捷键/">idea快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/mysql 5.7.22解压版安装教程,亲测/">mysql 5.7.22解压版安装教程,亲测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/linux软件的安装/">linux软件的安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/git使用/">git使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/28/电商秒杀/">电商秒杀基本思路总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/spring第一天/">spring第一天</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/01/springAOP/">spring AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/01/观察者模式/">观察者模式</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/your-user-name" title="GitHub" target="_blank">GitHub</a><ul></ul><a href="http://douban.com/people/your-user-name" title="豆瓣" target="_blank">豆瓣</a><ul></ul><a href="http://www.zhihu.com/people/your-user-name" title="知乎" target="_blank">知乎</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019  阙继芳</div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
