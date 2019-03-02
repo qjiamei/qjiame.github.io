@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title> | JAVA前沿</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JAVA前沿</h1><a id="logo" href="/.">JAVA前沿</a><p class="description">阙继芳的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-meta">Mar 2, 2019</div><div class="post-content"><p>title: MySQL数据库优化专题之二sql语句优化<br>date: 2019-3-2 22:43:00<br>categories: 数据库<br>mathjax: true<br>comments: true<br>toc: true<br>tags: Mysql</p>
+<h3 id="一-联合索引"><a href="#一-联合索引" class="headerlink" title="一.联合索引"></a>一.联合索引</h3><p>alter table 表名 add primary key (列名);<br>创建一个联合索引<br>alter table dept add index my_ind (dname,loc); //  dname 左边的列,loc就是右边的列<br>注意:</p>
+<ol>
+<li>对于创建的多列索引，如果不是使用第一部分，则不会创建索引。<br>explain select * from dept where loc=’aaa’\G<br>就不会使用到索引</li>
+<li>模糊查询在like前面有百分号开头会失效。</li>
+<li>如果条件中有or，即使其中有条件带索引也不会使用。换言之，就是要求使用的所有字段，都必须建立索引, 我们建议大家尽量避免使用or 关键字</li>
+<li>如果列类型是字符串，那一定要在条件中将数据使用引号引用起来。否则不使用索引。(添加时,字符串必须’’), 也就是，如果列是字符串类型，就一定要用 ‘’ 把他包括起来.</li>
+<li>如果mysql估计使用全表扫描要比使用索引快，则不使用索引。</li>
+</ol>
+<h3 id="二-查询所用使用率"><a href="#二-查询所用使用率" class="headerlink" title="二.查询所用使用率"></a>二.查询所用使用率</h3><p>show status like ‘handler_read%’;<br>大家可以注意：<br>handler_read_key:这个值越高越好，越高表示使用索引查询到的次数。<br>handler_read_rnd_next:这个值越高，说明查询低效。</p>
+<h3 id="三-SQL优化技巧"><a href="#三-SQL优化技巧" class="headerlink" title="三.SQL优化技巧"></a>三.SQL优化技巧</h3><ol>
+<li>使用group by 分组查询是，默认分组后，还会排序，可能会降低速度，</li>
+<li>在group by 后面增加 order by null 就可以防止排序.explain select * from emp  group by deptno order by null;</li>
+<li>有些情况下，可以使用连接来替代子查询。因为使用join，MySQL不需要在内存中创建临时表。<br>select <em> from dept, emp where dept.deptno=emp.deptno; [简单处理方式]<br>select </em> from dept left join emp on dept.deptno=emp.deptno;  [左外连接，更ok!]</li>
+</ol>
+<ol start="4">
+<li>对查询进行优化，要尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引</li>
+<li>应尽量避免在 where 子句中对字段进行 null值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：<br>select id from t where num is null</li>
+<li>最好不要给数据库留 NULL，尽可能的使用 NOT NULL 填充数据库.</li>
+<li>备注、描述、评论之类的可以设置为 NULL，其他的，最好不要使用 NULL。</li>
+<li>不要以为 NULL 不需要空间，比如：char(100) 型，在字段建立时，空间就固定了， 不管是否插入值（NULL 也包含在内），都是占用 100 个字符的空间的，如果是 varchar 这样的变长字段， null 不占用空间。</li>
+<li>可以在 num 上设置默认值 0，确保表中 num 列没有 null 值，然后这样查询：<br>select id from t where num = 0</li>
+</ol>
+<p>30种调优技巧</p>
+<ol>
+<li><p>’对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
+</li>
+<li><p>应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
+</li>
+<li><p>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
+</li>
+</ol>
+<p>select id from t where num is null</p>
+<p>可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：</p>
+<p>select id from t where num=0</p>
+<ol start="4">
+<li>应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如：</li>
+</ol>
+<p>select id from t where num=10 or num=20</p>
+<p>可以这样查询：</p>
+<p>select id from t where num=10</p>
+<p>union all</p>
+<p>select id from t where num=20</p>
+<ol start="5">
+<li>下面的查询也将导致全表扫描：</li>
+</ol>
+<p>select id from t where name like ‘%abc%’</p>
+<p>若要提高效率，可以考虑全文检索。</p>
+<ol start="6">
+<li>in 和 not in 也要慎用，否则会导致全表扫描，如：</li>
+</ol>
+<p>select id from t where num in(1,2,3)</p>
+<p>对于连续的数值，能用 between 就不要用 in 了：</p>
+<p>select id from t where num between 1 and 3</p>
+<ol start="7">
+<li>如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：</li>
+</ol>
+<p>select id from t where num=@num</p>
+<p>可以改为强制查询使用索引：</p>
+<p>select id from t with(index(索引名)) where num=@num</p>
+<ol start="8">
+<li>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：</li>
+</ol>
+<p>select id from t where num/2=100</p>
+<p>应改为:</p>
+<p>select id from t where num=100*2</p>
+<ol start="9">
+<li>应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：</li>
+</ol>
+<p>select id from t where substring(name,1,3)=’abc’–name以abc开头的id</p>
+<p>select id from t where datediff(day,createdate,’2005-11-30’)=0–’2005-11-30’生成的id</p>
+<p>应改为:</p>
+<p>select id from t where name like ‘abc%’</p>
+<p>select id from t where createdate&gt;=’2005-11-30’ and createdate&lt;’2005-12-1’</p>
+<ol start="10">
+<li><p>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
+</li>
+<li><p>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+</li>
+<li><p>不要写一些没有意义的查询，如需要生成一个空表结构：</p>
+</li>
+</ol>
+<p>select col1,col2 into #t from t where 1=0</p>
+<p>这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：</p>
+<p>create table #t(…)</p>
+<ol start="13">
+<li>很多时候用 exists 代替 in 是一个好的选择：</li>
+</ol>
+<p>select num from a where num in(select num from b)</p>
+<p>用下面的语句替换：</p>
+<p>select num from a where exists(select 1 from b where num=a.num)</p>
+<ol start="14">
+<li><p>并不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</p>
+</li>
+<li><p>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
+</li>
+<li><p>应尽可能的避免更新 clustered 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</p>
+</li>
+<li><p>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</p>
+</li>
+<li><p>尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
+</li>
+<li><p>任何地方都不要使用 select <em> from t ，用具体的字段列表代替“</em>”，不要返回用不到的任何字段。</p>
+</li>
+<li><p>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</p>
+</li>
+<li><p>避免频繁创建和删除临时表，以减少系统表资源的消耗。</p>
+</li>
+<li><p>临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件，最好使用导出表。</p>
+</li>
+<li><p>在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。</p>
+</li>
+<li><p>如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</p>
+</li>
+<li><p>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</p>
+</li>
+<li><p>使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</p>
+</li>
+<li><p>与临时表一样，游标并不是不可使用。对小型数据集使用 FAST_FORWARD 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</p>
+</li>
+<li><p>在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</p>
+</li>
+<li><p>尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
+</li>
+<li><p>尽量避免大事务操作，提高系统并发能力。</p>
+</li>
+</ol>
+</div><iframe src="/donate/?AliPayQR=/img/AliPayQR.png&amp;WeChatQR=/img/WeChatQR.png&amp;GitHub=null&amp;BTCQR=null&amp;BTCKEY=null&amp;PayPal=null" style="overflow-x:hidden; overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;" frameborder="0" scrolling="no"></iframe><div class="tags"></div><div class="post-nav"><a class="next" href="/2019/03/02/MySQL数据库优化专题之二一/"></a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JAVAWEB/">JAVAWEB</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础/">基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/框架/">框架</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/解决/">解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目/">项目</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/dao-xml/" style="font-size: 15px;">dao.xml</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/idea/" style="font-size: 15px;">idea</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/spring-mvc/" style="font-size: 15px;">spring mvc</a> <a href="/tags/springAOP/" style="font-size: 15px;">springAOP</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/service-xml-trans-xml/" style="font-size: 15px;">service.xml trans.xml</a> <a href="/tags/struts/" style="font-size: 15px;">struts</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/秒杀/" style="font-size: 15px;">秒杀</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/框架/" style="font-size: 15px;">框架</a> <a href="/tags/orcal/" style="font-size: 15px;">orcal</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/web-xml/" style="font-size: 15px;">web.xml</a> <a href="/tags/观察者模式/" style="font-size: 15px;">观察者模式</a> <a href="/tags/mvc-xml/" style="font-size: 15px;">mvc.xml</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/02/MySQL数据库优化专题之二sql语句优化/">MySQL数据库优化专题之二sql语句优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/02/MySQL数据库优化专题之二一/">MySQL数据库优化专题之二一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/JVM总结/">JVM总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/16/Mybatis标签/">Mybatis标签总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/30/idea快捷键/">idea快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/mysql 5.7.22解压版安装教程,亲测/">mysql 5.7.22解压版安装教程,亲测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/linux软件的安装/">linux软件的安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/git使用/">git使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/28/电商秒杀/">电商秒杀基本思路总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/09/spring第一天/">spring第一天</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/your-user-name" title="GitHub" target="_blank">GitHub</a><ul></ul><a href="http://douban.com/people/your-user-name" title="豆瓣" target="_blank">豆瓣</a><ul></ul><a href="http://www.zhihu.com/people/your-user-name" title="知乎" target="_blank">知乎</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019  阙继芳</div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
