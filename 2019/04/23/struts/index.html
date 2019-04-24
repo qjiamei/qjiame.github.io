@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>struts总结 | JAVA前沿</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">struts总结</h1><a id="logo" href="/.">JAVA前沿</a><p class="description">阙继芳的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">struts总结</h1><div class="post-meta">Apr 23, 2019<span> | </span><span class="category"><a href="/categories/struts/">struts</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#二-常量配置"><span class="toc-number">1.</span> <span class="toc-text">二.常量配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-struts2的action详解"><span class="toc-number">2.</span> <span class="toc-text">三.struts2的action详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-action访问方式"><span class="toc-number">3.</span> <span class="toc-text">四.action访问方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-Struts2框架封装数据"><span class="toc-number">4.</span> <span class="toc-text">五.Struts2框架封装数据</span></a></li></ol></div></div><div class="post-content"><ol>
+<li>核心点:<ul>
+<li>拦截器 interceptor</li>
+<li>Action</li>
+<li>ognl与valueStack</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>package配置</p>
+<ul>
+<li>name:作用:定义一个包的名称，它必须唯一。</li>
+<li>namespace:主要是与action标签的name属性联合使用来确定一个action 的访问路径</li>
+<li>extends属性 作用:指定继承自哪个包。一般值是strtus-default,strtus-default包是在strtus-default.xml文件中声明的。</li>
+<li>4.abstruct属性 它代表当前包是一个抽象的，主要是用于被继承 </li>
+</ul>
+</li>
+<li><p>action配置</p>
+<ul>
+<li>name属性 作用:主要是与package的namespace联合使用来确定一个action的访问路径</li>
+<li>2.class属性  作用:用于指示当前的action类</li>
+<li>3.method属性  作用:用于指示当前的action类中的哪个方法执行</li>
+</ul>
+</li>
+<li><p>result配置  </p>
+<ul>
+<li>它主要是用于指示结果视图</li>
+<li>name属性 作用是与action类的method方法的返回值进行匹配，来确定跳转路径</li>
+<li>type属性 作用是用于指定跳转方式</li>
+</ul>
+</li>
+<li><p>扩展</p>
+<ul>
+<li>关于action配置中的class与method的默认值以及result中的name与type 默认值问题</li>
+<li>不写result,method, result的name属性默认值是success,默认的跳转方式是请求转发 dispatcher,方法是 execute.<br><img src="http://video.quejifang.cn/201904202223_907.png" alt=""></li>
+</ul>
+</li>
+</ol>
+<h3 id="二-常量配置"><a href="#二-常量配置" class="headerlink" title="二.常量配置"></a>二.常量配置</h3><ul>
+<li>default.properties文件中定义了struts2框架常用常量 .<br>问题:我们怎样可以定义常量<br>1.可以在src下创建一个strtus.properties配置文件<br>2.可以在web.xml文件中配置<br>3.可以直接在strtus.xml文件中定义常量 (推荐)<br><img src="http://video.quejifang.cn/201904202234_159.png" alt=""></li>
+</ul>
+<h3 id="三-struts2的action详解"><a href="#三-struts2的action详解" class="headerlink" title="三.struts2的action详解"></a>三.struts2的action详解</h3><ol>
+<li><p>action类创建的三种方式</p>
+<ul>
+<li><p><strong>创建一个pojo类</strong><br>优点:无耦合<br>缺点:所有的功能都要自己完成</p>
+</li>
+<li><p><strong>实现action接口com.opensymphony.xwork2.Action</strong><br>在Action接口中定义了五个常量，一个execute方法<br>五个常量:它们是默认的五个结果视图<result name="””">:<br>ERROR : 错误视图<br>INPUT: 它是struts2框架中interceptor中发现问题后会访问的一个视图<br>LOGIN:它是一个登录视图，可以在权限操作中使用<br>NONE:它代表的是null,什么都不做（也不会做跳转操作）<br>SUCCESS:这是一个成功视图<br>优点：耦合度低<br>缺点:还是需要自己来完成功能</result></p>
+</li>
+<li><p><strong>继承actionSupport</strong><br>com.opensymphony.xwork2.ActionSupport<br>ActionSupport类也实现了Action接口。<br>我们在开发中一般会使用这种方案:<br>优点:具有丰富的功能，例如  表单校验 错误信息设置  国际化<br>缺点:耦合度高</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="四-action访问方式"><a href="#四-action访问方式" class="headerlink" title="四.action访问方式"></a>四.action访问方式</h3><ul>
+<li>1.直接通过<action>标签来配置，通过method来指定访问的方法，如果method没有，默认访问的是execute方法。<br><img src="http://video.quejifang.cn/201904210947_621.png" alt=""></action></li>
+<li>2.简化的action访问方式，可以使用<em>通配符来访问。<br>这种方式的缺点:不建议使用过多的</em>号，它带来程序阅读障碍，不便于理解<br>使用*来简化操作方案，它对名称规范必须进行一个统一。<br><img src="http://video.quejifang.cn/201904210948_252.png" alt=""></li>
+</ul>
+<h3 id="五-Struts2框架封装数据"><a href="#五-Struts2框架封装数据" class="headerlink" title="五.Struts2框架封装数据"></a>五.Struts2框架封装数据</h3><p>主要有两种方式:<br><strong>1.属性驱动</strong></p>
+<ul>
+<li>a.直接在action类中提供与请求参数匹配属性，提供get/set方法</li>
+<li>b.在action类中创始一个javaBean,对其提供get/set ，在请求时页面上要进行修改，      例如 user.username  user.password ,要使用ognl表达式<br>以上两种方式的优缺点:</li>
+<li>第一种比较简单，在实际操作我们需要将action的属性在赋值给模型(javaBean)    去操作</li>
+<li>第二种:不需要在直接将值给javaBean过程，因为直接将数据封装到了javaBean    中。它要求在页面上必须使用ognl表达式，就存在页面不通用问题。</li>
+</ul>
+<p><strong>2.模型驱动</strong><br>步骤:</p>
+<ul>
+<li>1.让Action类要实现一个指定接口ModelDriven</li>
+<li>2.实例化模型对象(就是要new出来javaBean)</li>
+<li>3.重写getModel方法将实例化的模型返回。</li>
+</ul>
+</div><iframe src="/donate/?AliPayQR=/img/AliPayQR.png&amp;WeChatQR=/img/WeChatQR.png&amp;GitHub=null&amp;BTCQR=null&amp;BTCKEY=null&amp;PayPal=null" style="overflow-x:hidden; overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;" frameborder="0" scrolling="no"></iframe><div class="tags"><a href="/tags/框架/">框架</a></div><div class="post-nav"><a class="pre" href="/2019/04/23/HTML/">HTML</a><a class="next" href="/2019/04/11/定时入库/">复盘定时入库项目</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVAWEB/">JAVAWEB</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WebService/">WebService</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jQuery/">jQuery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts/">struts</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础/">基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/定时入库/">定时入库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/框架/">框架</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/解决/">解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目/">项目</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/springAOP/" style="font-size: 15px;">springAOP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/基础/" style="font-size: 15px;">基础</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/idea/" style="font-size: 15px;">idea</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/spring-mvc/" style="font-size: 15px;">spring mvc</a> <a href="/tags/框架/" style="font-size: 15px;">框架</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/struts/" style="font-size: 15px;">struts</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/service-xml-trans-xml/" style="font-size: 15px;">service.xml trans.xml</a> <a href="/tags/dao-xml/" style="font-size: 15px;">dao.xml</a> <a href="/tags/复盘/" style="font-size: 15px;">复盘</a> <a href="/tags/观察者模式/" style="font-size: 15px;">观察者模式</a> <a href="/tags/秒杀/" style="font-size: 15px;">秒杀</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Mysql/" style="font-size: 15px;">Mysql</a> <a href="/tags/orcal/" style="font-size: 15px;">orcal</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/web-xml/" style="font-size: 15px;">web.xml</a> <a href="/tags/mvc-xml/" style="font-size: 15px;">mvc.xml</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/jQurey之一(选择器)/">jQuery之一(选择器)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/HTML/">HTML</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/struts/">struts总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/定时入库/">复盘定时入库项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Docker/">Docker使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/23/Webservice/">WebService</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/SQL语句练习/">SQL语句练习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/一.线程安全解决办法/">多线程总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/springBoot框架/">springBoot 基础总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/http详解/">HTTP详解</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/your-user-name" title="GitHub" target="_blank">GitHub</a><ul></ul><a href="http://douban.com/people/your-user-name" title="豆瓣" target="_blank">豆瓣</a><ul></ul><a href="http://www.zhihu.com/people/your-user-name" title="知乎" target="_blank">知乎</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019  阙继芳</div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
