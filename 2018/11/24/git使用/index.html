@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title> | JAVA前沿</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JAVA前沿</h1><a id="logo" href="/.">JAVA前沿</a><p class="description">阙继芳的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-meta">Nov 24, 2018</div><div class="post-content"><p>title: git使用<br>date: 2017-07-18 07:16:00<br>categories: git<br>mathjax: true<br>comments: true<br>toc: true</p>
+<h2 id="tags-git"><a href="#tags-git" class="headerlink" title="tags: git"></a>tags: git</h2><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ol>
+<li>git config –global user.name “que”</li>
+<li>git config –global user.name.email “<a href="mailto:que@163.com" target="_blank" rel="noopener">que@163.com</a>“</li>
+<li>git config –global user.password “123”</li>
+<li>git config –list</li>
+<li>git init</li>
+<li>git clone <a href="http://XXX" target="_blank" rel="noopener">http://XXX</a></li>
+<li>git add aa.md</li>
+<li>git commit -m ‘描述’</li>
+<li>git push origin master (推上去)</li>
+</ol>
+<h2 id="sea维护资料使用命令"><a href="#sea维护资料使用命令" class="headerlink" title="sea维护资料使用命令"></a>sea维护资料使用命令</h2><ol>
+<li>git init </li>
+<li>git clone http:XXX</li>
+<li>git checkout -b  0715_master_que (建议大家都使用自己的分支上管理，日期+master+名字)</li>
+<li>git add -A love (可以一次性管理全部文件夹)</li>
+<li>git commit -m ‘改动的描述’</li>
+<li>git checkout master (切换到主分支)</li>
+<li>git pull origin master (使用之前先拉一下)</li>
+<li>git merge 0715_master_que(跟主分支融合)</li>
+<li>git push origin master(推到主分支上)</li>
+</ol>
+<hr>
+<h2 id="在分支上使用一"><a href="#在分支上使用一" class="headerlink" title="在分支上使用一"></a>在分支上使用一</h2><ol>
+<li>使用 git checkout -b 0713bug_master<ul>
+<li>这个命令相当于两个命令</li>
+<li>git branch 0731bug_master (创建分支)</li>
+<li>git checkout 0730bug_master (新建分支)</li>
+</ul>
+</li>
+<li>在新切分支上修改<ul>
+<li>git status (可查看哪些文件被修改)</li>
+<li>git add bb.md (选择本次提交文件,多个路径用空格隔开)</li>
+<li>git commit -m ‘加描述’</li>
+</ul>
+</li>
+<li>假设多次提交后,要merge到主分支上去<ul>
+<li>git status (先查看一下)</li>
+<li>git stash (将这些改动的文件暂存起来)(git stash apply 切换回分支后使用此命令可以来到工作的点,改动过的都在)</li>
+<li>git checkout master (切换到主分支上)</li>
+<li>git pull origin master (先拉)</li>
+<li>git merge 0731bug_master (融合)</li>
+<li>git push origin master (推上去吧)</li>
+</ul>
+</li>
+</ol>
+<h2 id="在分支上使用二"><a href="#在分支上使用二" class="headerlink" title="在分支上使用二"></a>在分支上使用二</h2><p>如果主分支有两个,比如一个稳定版,一个开发版,要merge到开发版应该如何操作呢?</p>
+<ol>
+<li>git log (在当前分支0713bug_master找一个commitId,这个commitId是当前所要merge的第一次提交的前一个commitId)</li>
+<li>git checkout develop (切换到开发版分支)</li>
+<li>git pull origin develop</li>
+<li>git checkout 0713bug_master (切换到自己的bug分支)</li>
+<li>git rebase –onto=develop commitId</li>
+<li>git checkout develop (查看是否有冲突,有则解决)</li>
+<li>git push origin develop</li>
+</ol>
+<h2 id="在分支上使用二-通用"><a href="#在分支上使用二-通用" class="headerlink" title="在分支上使用二(通用)"></a>在分支上使用二(通用)</h2><ol>
+<li>git log(在当前分支0713bug_master上，找到要merge的commitId)</li>
+<li>git checkout develop</li>
+<li>git pull origin develop</li>
+<li>git cherry-pick commitId<br>查看是否有冲突,有则解决冲突</li>
+<li>git push origin develop</li>
+</ol>
+<h2 id="关于github上克隆项目的问题"><a href="#关于github上克隆项目的问题" class="headerlink" title="关于github上克隆项目的问题"></a>关于github上克隆项目的问题</h2><ol>
+<li>新电脑需要先把公钥复制到 New SSH key里.<ul>
+<li>ssh key：ssh-keygen -t rsa -C  “<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>“ (这里要一路回车)</li>
+<li>在用户目录下的.ssh文件夹中有id_rsa(私钥)和id_rsa.pub(公钥)</li>
+<li>git clone git@XXx</li>
+<li>如果报错的话,有可能是网络环境问题,请在clone后+http协议地址.</li>
+<li>git remote show origin (查看某个远程仓库的详细信息)</li>
+</ul>
+</li>
+</ol>
+<h2 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h2><ol>
+<li>rm aa.md</li>
+<li>git rm aa.md</li>
+<li>git commit -m ‘描述’</li>
+<li>git push origin master</li>
+</ol>
+<h2 id="其它常用命令"><a href="#其它常用命令" class="headerlink" title="其它常用命令"></a>其它常用命令</h2><ol>
+<li>git branch (查看本地所有的分支)</li>
+<li>git add -A abc (abc为文件夹，文件夹下所有文档都将add)</li>
+<li><code>git add .</code> 也是添加代码进去</li>
+<li>git branch -D 0713bug_master (强制删除0713bug_master分支)</li>
+<li>git reset –hard commitId(回滚到某次commitId状态，git reset –soft HEAD~ )</li>
+<li><p>git reset [–hard|soft|mixed|merge|keep] [commit|HEAD]</p>
+</li>
+<li><p>git remote add kh <a href="https://git.oschina.Net/zgj2016/KHPro.git" target="_blank" rel="noopener">https://git.oschina.Net/zgj2016/KHPro.git</a> （这行命令执行一次就行，是为了给自己仓库的地址起个别名，下次提交不需要执行此行代码）</p>
+</li>
+<li>git mv game.py wordgame.py(在git里重命名需要用到git mv 命令)</li>
+<li>echo *.temp &gt; .gitignore （创建带点的忽略文件夹，并忽略.temp文件）</li>
+<li>成功合并后要查看版本状态,这三命令<ul>
+<li><code>git status</code></li>
+<li><code>git log --graph -all</code></li>
+<li><code>git log --graph --pretty=oneline --abbrev-commit</code>这个是只关心分支线的情况</li>
+</ul>
+</li>
+<li>恢复误删分支<ul>
+<li>git log –branches=”被删的分支名”</li>
+<li>git branch develop 版本id</li>
+</ul>
+</li>
+</ol>
+<p>5.其它操作</p>
+<ul>
+<li>git clone -b [分支名称] git@….git             克隆某一个分支</li>
+<li>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;     取回远程分支并合并到本地分支</li>
+<li>git fetch origin &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;新分支名&gt;  取回远程分支并重命名未新分支</li>
+</ul>
+<ol start="6">
+<li><p>LF警告</p>
+<ul>
+<li><code>rm -rf .git // 删除.git</code></li>
+<li><code>git config –global core.autocrlf false //禁用自动转换</code></li>
+<li><code>git init //初始化git库</code></li>
+<li><code>git add –all //提交所有修改到暂存区</code></li>
+</ul>
+</li>
+<li><p>cloud not found(克隆的时候找不到)</p>
+<ul>
+<li>找不到存储库，最核心的问题是证书管理器保存的信息于当前拉取的信息有问题，所以执行一下操作</li>
+<li><code>git credential-manager uninstall</code></li>
+<li><code>git credential-manager install</code></li>
+</ul>
+</li>
+</ol>
+</div><iframe src="/donate/?AliPayQR=/img/AliPayQR.png&amp;WeChatQR=/img/WeChatQR.png&amp;GitHub=null&amp;BTCQR=null&amp;BTCKEY=null&amp;PayPal=null" style="overflow-x:hidden; overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;" frameborder="0" scrolling="no"></iframe><div class="tags"></div><div class="post-nav"><a class="pre" href="/2018/11/30/idea快捷键/">idea快捷键</a><a class="next" href="/2017/07/18/mysql 5.7.22解压版安装教程,亲测/">mysql 5.7.22解压版安装教程,亲测</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVAWEB/">JAVAWEB</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mybatis/">Mybatis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringBoot/">SpringBoot</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WebService/">WebService</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jQuery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/struts/">struts</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/动态代理/">动态代理</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础/">基础</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/定时入库/">定时入库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/框架/">框架</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/解决/">解决</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/项目/">项目</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/service-xml-trans-xml/" style="font-size: 15px;">service.xml trans.xml</a> <a href="/tags/docker/" style="font-size: 15px;">docker</a> <a href="/tags/sql/" style="font-size: 15px;">sql</a> <a href="/tags/基础/" style="font-size: 15px;">基础</a> <a href="/tags/idea/" style="font-size: 15px;">idea</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/springAOP/" style="font-size: 15px;">springAOP</a> <a href="/tags/spring-mvc/" style="font-size: 15px;">spring mvc</a> <a href="/tags/框架/" style="font-size: 15px;">框架</a> <a href="/tags/struts/" style="font-size: 15px;">struts</a> <a href="/tags/svn/" style="font-size: 15px;">svn</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/dao-xml/" style="font-size: 15px;">dao.xml</a> <a href="/tags/复盘/" style="font-size: 15px;">复盘</a> <a href="/tags/秒杀/" style="font-size: 15px;">秒杀</a> <a href="/tags/观察者模式/" style="font-size: 15px;">观察者模式</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Mysql/" style="font-size: 15px;">Mysql</a> <a href="/tags/orcal/" style="font-size: 15px;">orcal</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/web-xml/" style="font-size: 15px;">web.xml</a> <a href="/tags/mvc-xml/" style="font-size: 15px;">mvc.xml</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/29/jQuery之二/">jQuery之二(操作)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/jQurey之一(选择器)/">jQuery之一(选择器)</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/HTML/">HTML</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/23/struts/">struts总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/定时入库/">复盘定时入库项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Docker/">Docker使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/23/Webservice/">WebService</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/SQL语句练习/">SQL语句练习</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/一.线程安全解决办法/">多线程总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/13/spring mvc注解/">springMVC注解等总结</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/your-user-name" title="GitHub" target="_blank">GitHub</a><ul></ul><a href="http://douban.com/people/your-user-name" title="豆瓣" target="_blank">豆瓣</a><ul></ul><a href="http://www.zhihu.com/people/your-user-name" title="知乎" target="_blank">知乎</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019  阙继芳</div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
